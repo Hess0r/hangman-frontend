@@ -1,14 +1,14 @@
 import React from "react";
 
 const TextInput: React.FC<{
-  type?: "text" | "password";
+  type?: "text" | "password" | "email";
   name: string;
   className?: string;
 }> = ({ type = "text", name, className }) => {
   return (
     <input
       type={type}
-      className={`rounded w-full py-1.5 ${className ?? ""}`}
+      className={`rounded border-gray-200 w-full ${className ?? ""}`}
       name={name}
       id={name}
     />

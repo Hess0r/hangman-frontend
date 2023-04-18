@@ -40,7 +40,7 @@ const Login: React.FC<{}> = () => {
             <label htmlFor="email" className="block text-sm">
               Email
             </label>
-            <TextInput name="email" className="block mt-2" />
+            <TextInput name="email" type="email" className="block mt-2" />
           </div>
           <div>
             <label htmlFor="password" className="block text-sm">
