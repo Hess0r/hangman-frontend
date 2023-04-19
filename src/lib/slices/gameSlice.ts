@@ -13,7 +13,7 @@ export const fetchCurentGame = createAsyncThunk(
   "game/fetchCurrentGame",
   async (_, thunkApi) => {
     const token = (thunkApi.getState() as RootState).auth.token;
-    const response = await axios.get<Game>("/api/game", {
+    const response = await axios.get<{ data: Game }>("/api/game", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -25,7 +25,7 @@ export const createGame = createAsyncThunk(
   "game/createGame",
   async (difficulty: string, thunkApi) => {
     const token = (thunkApi.getState() as RootState).auth.token;
-    const response = await axios.post<Game>(
+    const response = await axios.post<{data: Game}>(
       "/api/game",
       { difficulty },
       {
@@ -48,7 +48,7 @@ const gameSlice = createSlice({
     builder.addCase(fetchCurentGame.fulfilled, (state, action) => {
       state.loading = false;
       state.status = "found";
-      state.game = action.payload;
+      state.game = action.payload.data;
     });
     builder.addCase(fetchCurentGame.rejected, (state) => {
       state.loading = false;
@@ -62,7 +62,7 @@ const gameSlice = createSlice({
     builder.addCase(createGame.fulfilled, (state, action) => {
       state.loading = false;
       state.status = "found";
-      state.game = action.payload;
+      state.game = action.payload.data;
     });
     builder.addCase(createGame.rejected, (state) => {
       state.loading = false;
