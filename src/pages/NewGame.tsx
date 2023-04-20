@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import PrimaryBtn from "../components/button/PrimaryBtn";
 import RadioBtn from "../components/button/RadioBtn";
+import SplashScreen from "../components/SplashScreen";
 import {
   createGame,
   fetchCurentGame,
@@ -30,7 +31,7 @@ const NewGame: React.FC<{}> = () => {
   };
 
   if (status === "init") {
-    return <div>loading</div>;
+    return <SplashScreen />;
   }
 
   if (status === "found") {
@@ -64,7 +65,11 @@ const NewGame: React.FC<{}> = () => {
         </RadioBtn>
 
         <div className="mt-16">
-          <PrimaryBtn type="button" onClick={handleStartGame}>
+          <PrimaryBtn
+            type="button"
+            onClick={handleStartGame}
+            className="w-full"
+          >
             Let's play
           </PrimaryBtn>
         </div>

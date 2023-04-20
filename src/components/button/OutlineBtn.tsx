@@ -1,15 +1,16 @@
 import React from "react";
+import Button, { type ButtonProps } from "./Button";
 
-const OutlineBtn: React.FC<
-  React.PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>>
-> = ({ children, ...props }) => {
+const OutlineBtn: React.FC<ButtonProps> = ({ children, ...props }) => {
   return (
-    <button
+    <Button
       {...props}
-      className="flex justify-center items-center rounded border border-sky-500 px-3 py-2 text-sky-500 uppercase hover:border-sky-400 text-sm"
+      className={`rounded border border-sky-500 text-sm text-sky-500 uppercase hover:border-sky-400 ${
+        props.className ?? ""
+      }`}
     >
       {children}
-    </button>
+    </Button>
   );
 };
 

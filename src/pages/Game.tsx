@@ -6,6 +6,7 @@ import PrimaryBtn from "../components/button/PrimaryBtn";
 import CurrentWord from "../components/game/CurrentWord";
 import Gallows from "../components/game/Gallows";
 import VirtualKeyboard from "../components/game/VirtualKeyboard";
+import SplashScreen from "../components/SplashScreen";
 import { fetchCurentGame, gameSelector } from "../lib/slices/gameSlice";
 import { useAppDispatch } from "../lib/store";
 
@@ -20,7 +21,7 @@ const Game: React.FC<{}> = () => {
   }, [status, loading]);
 
   if (status === "init") {
-    return <div>loading</div>;
+    return <SplashScreen />;
   }
 
   if (status === "not_found") {
@@ -28,7 +29,7 @@ const Game: React.FC<{}> = () => {
   }
 
   if (!game) {
-    return <div>loading</div>;
+    return <SplashScreen />;
   }
 
   return (
@@ -45,9 +46,9 @@ const Game: React.FC<{}> = () => {
           Remaining possibility of failure:
           <span className="font-bold"> {game.remainingIncorrectGuesses}</span>
         </p>
-        <div className="flex">
-          <OutlineBtn>End game</OutlineBtn>
-          <PrimaryBtn>Start new game</PrimaryBtn>
+        <div className="flex gap-2">
+          <OutlineBtn className="w-44">End game</OutlineBtn>
+          <PrimaryBtn className="w-44">Start new game</PrimaryBtn>
         </div>
       </div>
       <div className="">

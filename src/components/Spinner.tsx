@@ -2,16 +2,14 @@ import React from "react";
 
 const Spinner: React.FC<{ className?: string }> = ({ className }) => {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className={className ?? "w-4 h-4"}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      stroke="currentColor"
-      strokeWidth={1.5}
+    <div
+      className={`inline-block h-3 w-3 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] ${className}`}
+      role="status"
     >
-      <path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z" />
-    </svg>
+      <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+        Loading...
+      </span>
+    </div>
   );
 };
 

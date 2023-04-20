@@ -48,7 +48,7 @@ const Login: React.FC<{}> = () => {
             </label>
             <TextInput name="password" type="password" className="block mt-2" />
           </div>
-          <PrimaryBtn loading={loading}>Sign in</PrimaryBtn>
+          <PrimaryBtn loading={loading} className="w-full">Sign in</PrimaryBtn>
         </form>
       </div>
     </div>
