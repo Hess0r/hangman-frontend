@@ -37,6 +37,22 @@ export const createGame = createAsyncThunk(
   }
 );
 
+export const guessLetter = createAsyncThunk(
+  "game/guessLetter",
+  async (letter: string, thunkApi) => {
+    const token = (thunkApi.getState() as RootState).auth.token;
+    const response = await axios.put<{data: Game}>(
+      "/api/game",
+      { letter },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    return response.data;
+  }
+);
+
 const gameSlice = createSlice({
   name: "game",
   initialState,
@@ -65,6 +81,17 @@ const gameSlice = createSlice({
       state.game = action.payload.data;
     });
     builder.addCase(createGame.rejected, (state) => {
+      state.loading = false;
+    });
+
+    builder.addCase(guessLetter.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(guessLetter.fulfilled, (state, action) => {
+      state.loading = false;
+      state.game = action.payload.data;
+    });
+    builder.addCase(guessLetter.rejected, (state) => {
       state.loading = false;
     });
   },

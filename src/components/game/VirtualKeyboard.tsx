@@ -2,9 +2,10 @@ import React from "react";
 
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-const VirtualKeyboard: React.FC<{ handleClick: (char: string) => void }> = ({
-  handleClick,
-}) => {
+const VirtualKeyboard: React.FC<{
+  handleClick: (char: string) => void;
+  guessedLetters: string[];
+}> = ({ handleClick }) => {
   return (
     <div className="grid grid-cols-13 gap-1.5">
       {Array.from(characters).map((char, index) => (

@@ -7,7 +7,11 @@ import CurrentWord from "../components/game/CurrentWord";
 import Gallows from "../components/game/Gallows";
 import VirtualKeyboard from "../components/game/VirtualKeyboard";
 import SplashScreen from "../components/SplashScreen";
-import { fetchCurentGame, gameSelector } from "../lib/slices/gameSlice";
+import {
+  fetchCurentGame,
+  gameSelector,
+  guessLetter,
+} from "../lib/slices/gameSlice";
 import { useAppDispatch } from "../lib/store";
 
 const Game: React.FC<{}> = () => {
@@ -19,6 +23,10 @@ const Game: React.FC<{}> = () => {
       dispatch(fetchCurentGame());
     }
   }, [status, loading]);
+
+  const handleLetterClick = (letter: string) => {
+    dispatch(guessLetter(letter));
+  };
 
   if (status === "init") {
     return <SplashScreen />;
@@ -40,7 +48,10 @@ const Game: React.FC<{}> = () => {
           <CurrentWord currentWord={game.currentWord} />
         </div>
         <div>
-          <VirtualKeyboard handleClick={(char) => console.log(char)} />
+          <VirtualKeyboard
+            handleClick={handleLetterClick}
+            guessedLetters={Array.from(game.guessedLetters)}
+          />
         </div>
         <p className="text-sm">
           Remaining possibility of failure:
@@ -52,7 +63,10 @@ const Game: React.FC<{}> = () => {
         </div>
       </div>
       <div className="">
-        <Gallows className="w-64 h-64" />
+        <Gallows
+          className="w-64 h-64"
+          errorCount={game.remainingIncorrectGuesses}
+        />
       </div>
     </div>
   );
