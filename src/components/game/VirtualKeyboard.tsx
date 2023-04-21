@@ -17,7 +17,7 @@ const VirtualKeyboard: React.FC<{
         <Button
           key={`virtual-keyboard-char-${index}`}
           type="button"
-          className="!px-2 !py-1 border border-gray-500 text-gray-500 uppercase"
+          className="!px-2 !py-1 border border-gray-500 uppercase"
           onClick={() => handleClick(char)}
           disabled={disabledLetters.includes(char)}
         >

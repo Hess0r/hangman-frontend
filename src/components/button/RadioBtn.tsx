@@ -10,7 +10,7 @@ const RadioBtn: React.FC<
       className={`text-sm ${
         selected
           ? "bg-sky-500 text-white"
-          : "shadow-md text-gray-500 hover:bg-sky-400 hover:text-white"
+          : "shadow-md hover:bg-sky-400 hover:text-white"
       }`}
       onClick={onClick}
     >

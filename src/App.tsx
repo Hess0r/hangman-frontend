@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import ProtectedLayout from "./components/ProtectedLayout";
+import Admin from "./pages/Admin";
 import Game from "./pages/Game";
 import Login from "./pages/Login";
 import NewGame from "./pages/NewGame";
@@ -11,6 +12,7 @@ function App() {
       <Route element={<ProtectedLayout />}>
         <Route path="/game" element={<Game />} />
         <Route path="/new-game" element={<NewGame />} />
+        <Route path="/admin" element={<Admin />} />
       </Route>
       <Route path="/login" element={<Login />} />
     </Routes>

@@ -1,14 +1,19 @@
 import React from "react";
 
-const TextInput: React.FC<{
+type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   type?: "text" | "password" | "email";
   name: string;
-  className?: string;
-}> = ({ type = "text", name, className }) => {
+};
+const TextInput: React.FC<TextInputProps> = ({
+  type = "text",
+  name,
+  ...props
+}) => {
   return (
     <input
+      {...props}
       type={type}
-      className={`rounded border-gray-200 w-full ${className ?? ""}`}
+      className={`rounded border-gray-200 w-full ${props.className ?? ""}`}
       name={name}
       id={name}
     />

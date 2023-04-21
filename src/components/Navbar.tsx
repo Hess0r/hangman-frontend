@@ -11,7 +11,7 @@ const Navbar: React.FC<{}> = () => {
           </Link>
         </div>
         <div className="flex">
-          <Link to="/admin" className="text-gray-500 uppercase text-xs">
+          <Link to="/admin" className="uppercase text-xs">
             Admin
           </Link>
         </div>

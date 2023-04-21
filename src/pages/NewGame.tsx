@@ -39,7 +39,7 @@ const NewGame: React.FC<{}> = () => {
 
   return (
     <div className="flex flex-col gap-8 items-center">
-      <h1 className="text-gray-500 text-3xl font-semibold">Hangman Game</h1>
+      <h1 className="text-3xl font-semibold">Hangman Game</h1>
       <p className="text-sm">Choose a difficulty level</p>
       <div className="flex flex-col gap-4 w-56">
         <RadioBtn
