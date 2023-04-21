@@ -13,7 +13,6 @@ const RadioBtn: React.FC<
           : "shadow-md text-gray-500 hover:bg-sky-400 hover:text-white"
       }`}
       onClick={onClick}
-      disabled={selected}
     >
       {children}
     </Button>

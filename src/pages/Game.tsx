@@ -44,13 +44,21 @@ const Game: React.FC<{}> = () => {
     <div className="flex gap-4">
       <div className="flex-1 space-y-8">
         <h1 className="text-gray-500 text-3xl font-semibold">Hangman Game</h1>
+        {game.status !== "IN_PROGRESS" && (
+          <h2
+            className={`text-xl font-semibold ${game.status === "WON" ? "text-green-500" : "text-red-500"
+              }`}
+          >
+            You've {game.status === "WON" ? "won" : "lost"}!
+          </h2>
+        )}
         <div>
           <CurrentWord currentWord={game.currentWord} />
         </div>
         <div>
           <VirtualKeyboard
             handleClick={handleLetterClick}
-            guessedLetters={Array.from(game.guessedLetters)}
+            guessedLetters={game.guessedLetters}
           />
         </div>
         <p className="text-sm">
