@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import type { Game, GameState } from "../../types/game";
+import type { Game, GameDifficulty, GameState } from "../../types/game";
 import { RootState } from "../store";
 
 const initialState: GameState = {
@@ -23,9 +23,9 @@ export const fetchCurentGame = createAsyncThunk(
 
 export const createGame = createAsyncThunk(
   "game/createGame",
-  async (difficulty: string, thunkApi) => {
+  async (difficulty: GameDifficulty, thunkApi) => {
     const token = (thunkApi.getState() as RootState).auth.token;
-    const response = await axios.post<{data: Game}>(
+    const response = await axios.post<{ data: Game }>(
       "/api/game",
       { difficulty },
       {
@@ -41,7 +41,7 @@ export const guessLetter = createAsyncThunk(
   "game/guessLetter",
   async (letter: string, thunkApi) => {
     const token = (thunkApi.getState() as RootState).auth.token;
-    const response = await axios.put<{data: Game}>(
+    const response = await axios.put<{ data: Game }>(
       "/api/game",
       { letter },
       {
@@ -52,6 +52,15 @@ export const guessLetter = createAsyncThunk(
     return response.data;
   }
 );
+
+export const endGame = createAsyncThunk("game/endGame", async (_, thunkApi) => {
+  const token = (thunkApi.getState() as RootState).auth.token;
+  const response = await axios.delete("/api/game", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return response.data;
+});
 
 const gameSlice = createSlice({
   name: "game",
@@ -93,6 +102,20 @@ const gameSlice = createSlice({
     });
     builder.addCase(guessLetter.rejected, (state) => {
       state.loading = false;
+    });
+
+    builder.addCase(endGame.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(endGame.fulfilled, (state) => {
+      state.loading = false;
+      state.game = null;
+      state.status = "not_found";
+    });
+    builder.addCase(endGame.rejected, (state) => {
+      state.loading = false;
+      state.game = null;
+      state.status = "not_found";
     });
   },
 });

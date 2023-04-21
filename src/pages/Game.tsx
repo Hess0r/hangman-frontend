@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import OutlineBtn from "../components/button/OutlineBtn";
 import PrimaryBtn from "../components/button/PrimaryBtn";
 import CurrentWord from "../components/game/CurrentWord";
@@ -8,6 +8,8 @@ import Gallows from "../components/game/Gallows";
 import VirtualKeyboard from "../components/game/VirtualKeyboard";
 import SplashScreen from "../components/SplashScreen";
 import {
+  createGame,
+  endGame,
   fetchCurentGame,
   gameSelector,
   guessLetter,
@@ -27,6 +29,16 @@ const Game: React.FC<{}> = () => {
   const handleLetterClick = (letter: string) => {
     dispatch(guessLetter(letter));
   };
+
+  const handleEndGame = () => {
+    dispatch(endGame());
+  };
+
+  const handleNewGame = React.useCallback(() => {
+    if (!game) return;
+
+    dispatch(createGame(game.difficulty));
+  }, [game]);
 
   if (status === "init") {
     return <SplashScreen />;
@@ -66,8 +78,12 @@ const Game: React.FC<{}> = () => {
           <span className="font-bold"> {game.remainingIncorrectGuesses}</span>
         </p>
         <div className="flex gap-2">
-          <OutlineBtn className="w-44">End game</OutlineBtn>
-          <PrimaryBtn className="w-44">Start new game</PrimaryBtn>
+          <OutlineBtn className="w-44" onClick={() => handleEndGame()}>
+            End game
+          </OutlineBtn>
+          <PrimaryBtn className="w-44" onClick={() => handleNewGame()}>
+            Start new game
+          </PrimaryBtn>
         </div>
       </div>
       <div className="">

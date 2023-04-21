@@ -10,6 +10,7 @@ import {
   gameSelector,
 } from "../lib/slices/gameSlice";
 import { useAppDispatch } from "../lib/store";
+import { GameDifficulty } from "../types/game";
 
 const NewGame: React.FC<{}> = () => {
   const { status, loading } = useSelector(gameSelector);
@@ -21,12 +22,10 @@ const NewGame: React.FC<{}> = () => {
     }
   }, [status, loading]);
 
-  const [selectedDifficulty, setSelectedDifficulty] = React.useState<
-    "EASY" | "MEDIUM" | "HARD"
-  >("EASY");
+  const [selectedDifficulty, setSelectedDifficulty] =
+    React.useState<GameDifficulty>("EASY");
 
   const handleStartGame = () => {
-    console.log("selectedDifficulty: ", selectedDifficulty);
     dispatch(createGame(selectedDifficulty));
   };
 
