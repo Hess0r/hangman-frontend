@@ -13,10 +13,10 @@ const ProtectedLayout: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
-      <div className="mt-8 py-8 px-16 w-full max-w-5xl bg-white mx-auto rounded-lg">
-        <Outlet />
-      </div>
+      {/* <Navbar /> */}
+      {/* <div className="mt-8 py-8 px-16 w-full max-w-5xl bg-white mx-auto rounded-lg"> */}
+      <Outlet />
+      {/* </div> */}
     </div>
   );
 };

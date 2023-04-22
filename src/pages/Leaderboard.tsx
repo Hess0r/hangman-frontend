@@ -15,7 +15,7 @@ const Leaderboard: React.FC<{}> = () => {
 
   React.useEffect(() => {
     dispatch(getLeaderboard());
-  }, []);
+  }, [user]);
 
   if (!leaderboard.length && !!loading) {
     return <SplashScreen />;

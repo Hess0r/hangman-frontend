@@ -38,11 +38,18 @@ export const login = createAsyncThunk(
       creadentials
     );
 
-    console.log("login thunk", resposnse);
-
     return resposnse.data;
   }
 );
+
+export const logout = createAsyncThunk("auth/logout", async (_, thunkApi) => {
+  const token = (thunkApi.getState() as RootState).auth.token;
+  const resposnse = await axios.post("/api/auth/logout", null, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return resposnse.data;
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -72,8 +79,26 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.loading = false;
     });
-    builder.addCase(login.rejected, (state, action) => {
+    builder.addCase(login.rejected, (state) => {
       state.loading = false;
+    });
+
+    builder.addCase(logout.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(logout.fulfilled, (state) => {
+      state.loading = false;
+      localStorage.removeItem(storageKey);
+      state.token = null;
+      state.status = "unauthenticated";
+      state.user = null;
+    });
+    builder.addCase(logout.rejected, (state) => {
+      state.loading = false;
+      localStorage.removeItem(storageKey);
+      state.token = null;
+      state.status = "unauthenticated";
+      state.user = null;
     });
   },
 });
