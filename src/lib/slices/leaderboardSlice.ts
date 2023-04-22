@@ -12,9 +12,7 @@ export const getLeaderboard = createAsyncThunk(
   "leaderboard/getLeaderboard",
   async (_, thunkApi) => {
     const token = (thunkApi.getState() as RootState).auth.token;
-    const response = await axios.get<{ data: UserScore[] }>("/api/user-score", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get<{ data: UserScore[] }>("/api/user-score");
 
     return response.data;
   }

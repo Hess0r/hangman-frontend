@@ -8,6 +8,7 @@ import type {
   User,
 } from "../../types/auth";
 import { RootState } from "../store";
+import { gameActions } from "./gameSlice";
 
 const storageKey = "auth-token";
 
@@ -18,17 +19,11 @@ const initialState: AuthState = {
   token: localStorage.getItem(storageKey),
 };
 
-export const fetchUser = createAsyncThunk(
-  "auth/fetchUser",
-  async (_, thunkApi) => {
-    const token = (thunkApi.getState() as RootState).auth.token;
-    const response = await axios.get<User>("/api/auth/user", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+export const fetchUser = createAsyncThunk("auth/fetchUser", async (_) => {
+  const response = await axios.get<User>("/api/auth/user");
 
-    return response.data;
-  }
-);
+  return response.data;
+});
 
 export const login = createAsyncThunk(
   "auth/login",
@@ -43,10 +38,8 @@ export const login = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk("auth/logout", async (_, thunkApi) => {
-  const token = (thunkApi.getState() as RootState).auth.token;
-  const resposnse = await axios.post("/api/auth/logout", null, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+  thunkApi.dispatch(gameActions.clearState());
+  const resposnse = await axios.post("/api/auth/logout", null);
 
   return resposnse.data;
 });
@@ -54,7 +47,14 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkApi) => {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      localStorage.removeItem(storageKey);
+      state.token = null;
+      state.status = "unauthenticated";
+      state.user = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUser.pending, (state) => {
       state.loading = true;
@@ -104,5 +104,7 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+
+export const authActions = authSlice.actions;
 
 export const authSelector = (state: RootState) => state.auth;

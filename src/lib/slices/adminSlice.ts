@@ -8,30 +8,17 @@ const initialState: AdminState = {
   loading: false,
 };
 
-export const getWords = createAsyncThunk(
-  "admin/getWords",
-  async (_, thunkApi) => {
-    const token = (thunkApi.getState() as RootState).auth.token;
-    const response = await axios.get<{ data: Word[] }>("/api/words", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+export const getWords = createAsyncThunk("admin/getWords", async (_) => {
+  const response = await axios.get<{ data: Word[] }>("/api/words");
 
-    return response.data;
-  }
-);
+  return response.data;
+});
 
 export const createWord = createAsyncThunk(
   "admin/createWord",
   async (word: string, thunkApi) => {
-    const token = (thunkApi.getState() as RootState).auth.token;
     try {
-      const response = await axios.post<{ data: Word }>(
-        "/api/words",
-        { word },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.post<{ data: Word }>("/api/words", { word });
 
       return response.data;
     } catch (err) {

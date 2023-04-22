@@ -6,9 +6,10 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import AuthInit from "./components/AuthInit";
 import "./index.css";
+import { setupAxios } from "./lib/axios";
 import store from "./lib/store";
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+setupAxios(store);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

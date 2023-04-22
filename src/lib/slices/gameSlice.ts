@@ -11,11 +11,8 @@ const initialState: GameState = {
 
 export const fetchCurentGame = createAsyncThunk(
   "game/fetchCurrentGame",
-  async (_, thunkApi) => {
-    const token = (thunkApi.getState() as RootState).auth.token;
-    const response = await axios.get<{ data: Game }>("/api/game", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async (_) => {
+    const response = await axios.get<{ data: Game }>("/api/game");
 
     return response.data;
   }
@@ -23,15 +20,10 @@ export const fetchCurentGame = createAsyncThunk(
 
 export const createGame = createAsyncThunk(
   "game/createGame",
-  async (difficulty: GameDifficulty, thunkApi) => {
-    const token = (thunkApi.getState() as RootState).auth.token;
-    const response = await axios.post<{ data: Game }>(
-      "/api/game",
-      { difficulty },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+  async (difficulty: GameDifficulty) => {
+    const response = await axios.post<{ data: Game }>("/api/game", {
+      difficulty,
+    });
 
     return response.data;
   }
@@ -39,25 +31,15 @@ export const createGame = createAsyncThunk(
 
 export const guessLetter = createAsyncThunk(
   "game/guessLetter",
-  async (letter: string, thunkApi) => {
-    const token = (thunkApi.getState() as RootState).auth.token;
-    const response = await axios.put<{ data: Game }>(
-      "/api/game",
-      { letter },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+  async (letter: string) => {
+    const response = await axios.put<{ data: Game }>("/api/game", { letter });
 
     return response.data;
   }
 );
 
-export const endGame = createAsyncThunk("game/endGame", async (_, thunkApi) => {
-  const token = (thunkApi.getState() as RootState).auth.token;
-  const response = await axios.delete("/api/game", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+export const endGame = createAsyncThunk("game/endGame", async (_) => {
+  const response = await axios.delete("/api/game");
 
   return response.data;
 });
@@ -65,7 +47,13 @@ export const endGame = createAsyncThunk("game/endGame", async (_, thunkApi) => {
 const gameSlice = createSlice({
   name: "game",
   initialState,
-  reducers: {},
+  reducers: {
+    clearState: (state) => {
+      state.loading = false;
+      state.game = null;
+      state.status = "init";
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCurentGame.pending, (state) => {
       state.loading = true;
@@ -121,5 +109,7 @@ const gameSlice = createSlice({
 });
 
 export default gameSlice.reducer;
+
+export const gameActions = gameSlice.actions;
 
 export const gameSelector = (state: RootState) => state.game;

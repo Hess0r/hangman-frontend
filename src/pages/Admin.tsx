@@ -34,7 +34,10 @@ const Admin: React.FC<{}> = () => {
 
     dispatch(createWord(inputValue))
       .unwrap()
-      .then(() => dispatch(getWords()))
+      .then(() => {
+        dispatch(getWords());
+        setInputValue("");
+      })
       .catch((e) => {
         console.log(e);
         if (e.status === 422) {
