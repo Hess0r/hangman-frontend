@@ -33,6 +33,7 @@ const Login: React.FC<{}> = () => {
     <div className="flex flex-col min-h-full justify-center">
       <div className="mx-auto w-full max-w-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
+          <h1 className="text-3xl text-center font-semibold">Sign in</h1>
           {!!error && (
             <p className="text-red-500 text-sm text-center">{error}</p>
           )}
@@ -48,7 +49,9 @@ const Login: React.FC<{}> = () => {
             </label>
             <TextInput name="password" type="password" className="block mt-2" />
           </div>
-          <PrimaryBtn loading={loading} className="w-full">Sign in</PrimaryBtn>
+          <PrimaryBtn loading={loading} className="w-full">
+            Sign in
+          </PrimaryBtn>
         </form>
       </div>
     </div>

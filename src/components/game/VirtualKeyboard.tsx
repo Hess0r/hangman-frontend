@@ -12,12 +12,12 @@ const VirtualKeyboard: React.FC<{
   }, [guessedLetters]);
 
   return (
-    <div className="grid grid-cols-13 gap-0.5 md:gap-1 xl:gap-1.5 w-[90%] mx-auto">
+    <div className="grid grid-cols-13 gap-0.5 md:gap-1 xl:gap-1.5 mx-auto">
       {Array.from(characters).map((char, index) => (
         <Button
           key={`virtual-keyboard-char-${index}`}
           type="button"
-          className="!px-1 !py-0 !md:px-2 !md:py-1 border border-gray-500 uppercase text-sm"
+          className="!px-1 !py-0 md:!px-2 md:!py-1 xl:!px-2 xl:!py-2 border border-gray-500 uppercase text-sm"
           onClick={() => handleClick(char)}
           disabled={disabledLetters.includes(char)}
         >

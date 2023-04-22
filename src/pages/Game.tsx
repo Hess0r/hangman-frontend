@@ -55,10 +55,10 @@ const Game: React.FC<{}> = () => {
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
       <div className="flex-1 space-y-4 lg:space-y-8">
-        <h1 className="text-center lg:text-left text-3xl font-semibold">Hangman Game</h1>
+        <h1 className="text-center text-3xl font-semibold lg:mb-10 lg:text-left">Hangman Game</h1>
         {game.status !== "IN_PROGRESS" && (
           <h2
-            className={`text-center lg:text-left text-xl font-semibold ${
+            className={`text-center text-xl font-semibold lg:text-left ${
               game.status === "WON" ? "text-green-500" : "text-red-500"
             }`}
           >

@@ -56,7 +56,7 @@ const Admin: React.FC<{}> = () => {
   return (
     <div className="flex flex-col gap-16 items-center">
       <h1 className="text-3xl font-semibold">Admin</h1>
-      <div className="grid grid-cols-3 gap-16">
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-3 xl:gap-16">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4">
             <p className="text-sm">Type the word you want to add to the list</p>
@@ -88,7 +88,7 @@ const Admin: React.FC<{}> = () => {
             </OutlineBtn>
           </div>
         </form>
-        <ul className="col-span-2 grid grid-cols-4 gap-x-2">
+        <ul className="grid grid-cols-2 gap-x-12 md:grid-cols-3 xl:col-span-2 xl:grid-cols-4">
           {words.map((word) => (
             <li key={`word-list-${word.id}`} className="text-sm">
               {word.word}
