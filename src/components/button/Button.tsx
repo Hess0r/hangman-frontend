@@ -13,7 +13,7 @@ const Button: React.FC<
   return (
     <button
       {...props}
-      className={`flex gap-2 justify-center items-center px-4 py-2 select-none disabled:cursor-not-allowed disabled:opacity-40 ${
+      className={`flex gap-2 justify-center items-center px-2 py-2 md:px-4 select-none disabled:cursor-not-allowed disabled:opacity-40 ${
         props.className ?? ""
       }`}
     >

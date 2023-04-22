@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import OutlineBtn from "../components/button/OutlineBtn";
 import PrimaryBtn from "../components/button/PrimaryBtn";
 import CurrentWord from "../components/game/CurrentWord";
@@ -53,18 +53,24 @@ const Game: React.FC<{}> = () => {
   }
 
   return (
-    <div className="flex gap-4">
-      <div className="flex-1 space-y-8">
-        <h1 className="text-3xl font-semibold">Hangman Game</h1>
+    <div className="flex flex-col gap-4 lg:flex-row">
+      <div className="flex-1 space-y-4 lg:space-y-8">
+        <h1 className="text-center lg:text-left text-3xl font-semibold">Hangman Game</h1>
         {game.status !== "IN_PROGRESS" && (
           <h2
-            className={`text-xl font-semibold ${
+            className={`text-center lg:text-left text-xl font-semibold ${
               game.status === "WON" ? "text-green-500" : "text-red-500"
             }`}
           >
             You've {game.status === "WON" ? "won" : "lost"}!
           </h2>
         )}
+        <div className="lg:hidden">
+          <Gallows
+            className="w-40 h-40 mx-auto xl:w-64 xl:h-64"
+            errorCount={game.remainingIncorrectGuesses}
+          />
+        </div>
         <div>
           <CurrentWord currentWord={game.currentWord} />
         </div>
@@ -74,22 +80,22 @@ const Game: React.FC<{}> = () => {
             guessedLetters={game.guessedLetters}
           />
         </div>
-        <p className="text-sm">
+        <p className="text-center lg:text-left text-sm">
           Remaining possibility of failure:
           <span className="font-bold"> {game.remainingIncorrectGuesses}</span>
         </p>
         <div className="flex gap-2">
-          <OutlineBtn className="w-44" onClick={() => handleEndGame()}>
+          <OutlineBtn className="flex-1 lg:w-44 lg:flex-none" onClick={() => handleEndGame()}>
             End game
           </OutlineBtn>
-          <PrimaryBtn className="w-44" onClick={() => handleNewGame()}>
+          <PrimaryBtn className="flex-1 lg:w-44 lg:flex-none" onClick={() => handleNewGame()}>
             Start new game
           </PrimaryBtn>
         </div>
       </div>
-      <div className="">
+      <div className="hidden lg:block">
         <Gallows
-          className="w-64 h-64"
+          className="w-40 h-40 xl:w-64 xl:h-64"
           errorCount={game.remainingIncorrectGuesses}
         />
       </div>

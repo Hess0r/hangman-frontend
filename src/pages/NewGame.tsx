@@ -41,7 +41,7 @@ const NewGame: React.FC<{}> = () => {
     <div className="flex flex-col gap-8 items-center">
       <h1 className="text-3xl font-semibold">Hangman Game</h1>
       <p className="text-sm">Choose a difficulty level</p>
-      <div className="flex flex-col gap-4 w-56">
+      <div className="flex flex-col gap-2 md:gap-4 w-56">
         <RadioBtn
           selected={selectedDifficulty === "EASY"}
           onClick={() => setSelectedDifficulty("EASY")}

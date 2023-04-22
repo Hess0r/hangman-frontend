@@ -11,9 +11,9 @@ const ProtectedLayout: React.FC = () => {
   }
 
   return (
-    <div>
+    <>
       <Outlet />
-    </div>
+    </>
   );
 };
 
