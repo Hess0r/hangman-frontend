@@ -24,12 +24,16 @@ const Leaderboard: React.FC<{}> = () => {
   return (
     <div className="flex flex-col items-center gap-8">
       <h1 className="text-3xl font-semibold">Leaderboard</h1>
-      <table className="w-3/4 table-fixed text-left">
+      <table className="w-full lg:w-3/4 table-fixed text-left">
         <thead>
           <tr className="border-b">
-            <th className="w-20 px-4 py-3">#</th>
-            <th className="px-4 py-3">Name</th>
-            <th className="w-24 px-4 py-3">Score</th>
+            <Td head className="w-14 md:w-20">
+              #
+            </Td>
+            <Td head>Name</Td>
+            <Td head className="w-16 md:w-24">
+              Score
+            </Td>
           </tr>
         </thead>
         <tbody>
@@ -38,14 +42,25 @@ const Leaderboard: React.FC<{}> = () => {
               key={`leaderboard-user-${us.id}`}
               className={`border-b ${user?.id === us.id ? "font-bold" : ""}`}
             >
-              <td className="px-4 py-3">{us.rank}</td>
-              <td className="px-4 py-3">{us.name}</td>
-              <td className="px-4 py-3">{us.score}</td>
+              <Td>{us.rank}</Td>
+              <Td>{us.name}</Td>
+              <Td>{us.score}</Td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+  );
+};
+
+const Td: React.FC<
+  React.PropsWithChildren<{ className?: string; head?: boolean }>
+> = ({ className, children, head }) => {
+  const Component = head ? "th" : "td";
+  return (
+    <Component className={`px-2 py-2 sm:px-4 sm:py-3 ${className ?? ""}`}>
+      {children}
+    </Component>
   );
 };
 
