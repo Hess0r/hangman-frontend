@@ -3,12 +3,14 @@ import { useDispatch } from "react-redux";
 import adminSlice from "./slices/adminSlice";
 import authReducer from "./slices/authSlice";
 import gameSlice from "./slices/gameSlice";
+import leaderboardSlice from "./slices/leaderboardSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     game: gameSlice,
     admin: adminSlice,
+    leaderboard: leaderboardSlice,
   },
 });
 

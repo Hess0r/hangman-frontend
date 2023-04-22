@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar: React.FC<{}> = () => {
   return (
@@ -10,10 +10,25 @@ const Navbar: React.FC<{}> = () => {
             <img src="/attrecto-144x50.png" alt="logo" />
           </Link>
         </div>
-        <div className="flex">
-          <Link to="/admin" className="uppercase text-xs">
+
+        <div className="flex gap-4">
+          <NavLink
+            to="/leaderboard"
+            className={({ isActive }) =>
+              `uppercase text-xs ${isActive ? "font-bold" : ""}`
+            }
+          >
+            Leaderboard
+          </NavLink>
+
+          <NavLink
+            to="/admin"
+            className={({ isActive }) =>
+              `uppercase text-xs ${isActive ? "font-bold" : ""}`
+            }
+          >
             Admin
-          </Link>
+          </NavLink>
         </div>
       </div>
     </nav>
