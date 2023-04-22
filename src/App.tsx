@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Layout from "./components/Layuot";
+import Layout from "./components/Layout";
 import ProtectedLayout from "./components/ProtectedLayout";
 import Admin from "./pages/Admin";
 import Game from "./pages/Game";
