@@ -20,12 +20,23 @@ export const fetchCurentGame = createAsyncThunk(
 
 export const createGame = createAsyncThunk(
   "game/createGame",
-  async (difficulty: GameDifficulty) => {
-    const response = await axios.post<{ data: Game }>("/api/game", {
-      difficulty,
-    });
+  async (difficulty: GameDifficulty, thunkApi) => {
+    try {
+      const response = await axios.post<{ data: Game }>("/api/game", {
+        difficulty,
+      });
 
-    return response.data;
+      return response.data;
+    } catch (err) {
+      if (axios.isAxiosError(err) && err.response) {
+        return thunkApi.rejectWithValue({
+          status: err.response.status,
+          data: err.response.data,
+        });
+      }
+
+      throw err;
+    }
   }
 );
 

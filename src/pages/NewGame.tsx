@@ -16,6 +16,8 @@ const NewGame: React.FC<{}> = () => {
   const { status, loading } = useSelector(gameSelector);
   const dispatch = useAppDispatch();
 
+  const [error, setError] = React.useState<string | null>(null);
+
   React.useEffect(() => {
     if (status === "init" && !loading) {
       dispatch(fetchCurentGame());
@@ -26,7 +28,14 @@ const NewGame: React.FC<{}> = () => {
     React.useState<GameDifficulty>("EASY");
 
   const handleStartGame = () => {
-    dispatch(createGame(selectedDifficulty));
+    setError(null);
+    dispatch(createGame(selectedDifficulty))
+      .unwrap()
+      .catch((e) => {
+        if (e.status === 400) {
+          setError(e.data.message);
+        }
+      });
   };
 
   if (status === "init") {
@@ -41,6 +50,7 @@ const NewGame: React.FC<{}> = () => {
     <div className="flex flex-col gap-8 items-center">
       <h1 className="text-3xl font-semibold">Hangman Game</h1>
       <p className="text-sm">Choose a difficulty level</p>
+      {!!error && <p className="text-sm text-red-500">{error}</p>}
       <div className="flex flex-col gap-2 md:gap-4 w-56">
         <RadioBtn
           selected={selectedDifficulty === "EASY"}

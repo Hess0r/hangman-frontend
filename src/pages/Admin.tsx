@@ -39,7 +39,6 @@ const Admin: React.FC<{}> = () => {
         setInputValue("");
       })
       .catch((e) => {
-        console.log(e);
         if (e.status === 422) {
           setError(e.data.message);
         }
